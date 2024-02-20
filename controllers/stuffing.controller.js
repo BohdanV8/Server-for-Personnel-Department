@@ -30,7 +30,7 @@ class StaffingController {
     const { department_id, workshop_id, employee_id, position } = req.body;
     try {
       const { rows } = await pool.query(
-        "UPDATE staffing SET department_id = $1, workshop_id = $2, employee_id = $3, position = $4 WHERE id = $5 RETURNING *",
+        "UPDATE staffing SET department_id = $1, workshop_id = $2, employee_id = $3, position = $4 WHERE staffing.staffing_id = $5 RETURNING *",
         [department_id, workshop_id, employee_id, position, id]
       );
       if (rows.length === 0) {
@@ -47,7 +47,7 @@ class StaffingController {
     const { id } = req.params;
     try {
       const { rows } = await pool.query(
-        "DELETE FROM staffing WHERE id = $1 RETURNING *",
+        "DELETE FROM staffing WHERE staffing_id = $1 RETURNING *",
         [id]
       );
       if (rows.length === 0) {
